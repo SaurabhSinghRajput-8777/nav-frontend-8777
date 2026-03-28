@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import api from "@/lib/api";
 import { useVoiceCommandContext } from "@/components/voice/VoiceCommandProvider";
@@ -8,10 +8,7 @@ import { useAccessibilityProfile } from "@/app/AccessibilityProfileContext";
 import { useNavigation, RouteStep } from "@/contexts/NavigationContext";
 import MapView from "@/components/map/MapView";
 
-// useSearchParams() requires dynamic rendering (cannot be statically pre-rendered)
-export const dynamic = "force-dynamic";
-
-export default function NavigatePage() {
+function NavigateContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const destination = searchParams.get("to") || "";
@@ -223,5 +220,13 @@ export default function NavigatePage() {
         ` }} />
       </div>
     </div>
+  );
+}
+
+export default function NavigatePage() {
+  return (
+    <Suspense fallback={<div style={{ width: "100%", height: "calc(100vh - 73px)", background: "#0f172a", display: "flex", alignItems: "center", justifyContent: "center", color: "white" }}>Loading navigation...</div>}>
+      <NavigateContent />
+    </Suspense>
   );
 }
