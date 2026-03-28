@@ -1,0 +1,304 @@
+@import "tailwindcss";
+
+/* ===== Tailwind v4 Theme — maps CSS vars to utility classes ===== */
+@theme {
+  --color-primary-50: var(--primary-50);
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-500: var(--primary-500);
+  --color-primary-600: var(--primary-600);
+  --color-primary-700: var(--primary-700);
+  --color-primary-900: var(--primary-900);
+
+  --color-accent: var(--accent);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+
+  --color-bg: var(--bg);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-border: var(--border);
+
+  --radius-default: var(--radius);
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* ===== NavAI Design System ===== */
+/* DARK THEME IS THE DEFAULT — the app is always dark-themed */
+
+:root {
+  /* Primary — Blue (trust, navigation) */
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-200: #bfdbfe;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --primary-900: #1e3a5f;
+
+  /* Accent — Teal (secondary actions, POI markers) */
+  --accent: #0d9488;
+
+  /* Semantic */
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --info: #0891b2;
+
+  /* Neutral — DARK MODE DEFAULT (light text on dark bg) */
+  --bg: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-elevated: #1e293b;
+  --fg: #f8fafc;
+  --fg-muted: #94a3b8;
+  --border: #334155;
+
+  /* Spacing & Radius */
+  --radius: 12px;
+
+  /* Accessible touch-target minimum */
+  --touch-min: 48px;
+
+  /* Z-Index Hierarchy */
+  --z-map: 100;
+  --z-map-controls: 200;
+  --z-route-overlay: 300;
+  --z-bottom-sheet: 400;
+  --z-transcript-bar: 500;
+  --z-voice-chip: 600;
+  --z-toast: 700;
+  --z-modal: 800;
+  --z-emergency: 900;
+  --z-overlay-tap: 1000;
+  
+  --bottom-sheet-height: 0px;
+}
+
+/* High Contrast Mode — WCAG AAA (≥ 7:1 against bg) */
+[data-contrast="high"] {
+  --bg: #000000;
+  --bg-secondary: #0a0a0a;
+  --fg: #ffffff;
+  --fg-muted: #d4d4d4;
+  --border: #525252;
+
+  --primary-50: #1e293b;
+  --primary-100: #1e3a5f;
+  --primary-200: #93bbfc;
+  --primary-500: #60a5fa;
+  --primary-600: #93bbfc;
+  --primary-700: #bfdbfe;
+  --primary-900: #dbeafe;
+
+  --accent: #2dd4bf;
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --danger: #f87171;
+  --info: #22d3ee;
+}
+
+/* Light Mode — opt-in only via data-theme="light" attribute */
+[data-theme="light"] {
+  --bg: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-elevated: #ffffff;
+  --fg: #0f172a;
+  --fg-muted: #64748b;
+  --border: #e2e8f0;
+}
+
+/* ===== Global Styles ===== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* Focus ring for accessibility */
+*:focus-visible {
+  outline: 3px solid var(--primary-500);
+  outline-offset: 2px;
+}
+
+/* Skip to content link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 10000;
+  padding: 8px 16px;
+  background: var(--primary-600);
+  color: #fff;
+  border-radius: var(--radius);
+  font-weight: 600;
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===== Component Styles ===== */
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  min-width: 48px;
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+.btn-primary {
+  background: var(--primary-600);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--primary-700);
+  transform: scale(1.02);
+}
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+}
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--border);
+  color: var(--fg);
+}
+.btn-outline:hover {
+  border-color: var(--primary-500);
+  color: var(--primary-500);
+}
+
+/* Turn Card */
+.turn-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--primary-500);
+}
+.turn-card--alert {
+  border-left-color: var(--danger);
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
+}
+.turn-card__distance {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.turn-card__street {
+  font-size: 1rem;
+  color: var(--fg-muted);
+}
+
+/* Floor Selector */
+.floor-selector {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+}
+.floor-tab {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: var(--fg-muted);
+}
+.floor-tab--active {
+  background: var(--primary-600);
+  color: #fff;
+}
+
+/* Onboarding */
+.onboarding {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.onboarding__progress {
+  width: 100%;
+  max-width: 400px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-bottom: 48px;
+}
+.onboarding__progress > div {
+  height: 100%;
+  background: var(--primary-500);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+.onboarding__nav {
+  display: flex;
+  gap: 16px;
+  margin-top: 48px;
+}
+
+/* Voice Indicator */
+.voice-indicator {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-600);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 1000;
+  border: none;
+}
+.voice-indicator--listening {
+  animation: pulse-mic 1.5s ease-in-out infinite;
+}
+@keyframes pulse-mic {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5); }
+  50% { box-shadow: 0 0 0 12px rgba(59, 130, 246, 0); }
+}
