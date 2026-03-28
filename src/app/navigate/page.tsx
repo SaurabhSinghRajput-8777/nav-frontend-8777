@@ -8,6 +8,9 @@ import { useAccessibilityProfile } from "@/app/AccessibilityProfileContext";
 import { useNavigation, RouteStep } from "@/contexts/NavigationContext";
 import MapView from "@/components/map/MapView";
 
+// useSearchParams() requires dynamic rendering (cannot be statically pre-rendered)
+export const dynamic = "force-dynamic";
+
 export default function NavigatePage() {
   const searchParams = useSearchParams();
   const router = useRouter();
